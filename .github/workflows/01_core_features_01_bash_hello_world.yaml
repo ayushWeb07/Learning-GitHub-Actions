@@ -1,0 +1,11 @@
+name: Bash Hello World Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  say-hello-world-bash:
+    runs-on: ubuntu-lastest
+    steps:
+      - name: Say hello world in bash
+        run: echo "Hello World, from bash"
