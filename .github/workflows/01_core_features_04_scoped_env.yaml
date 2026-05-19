@@ -1,4 +1,4 @@
-name: Multiple Steps Hello World Workflow
+name: Scoped ENV Workflow
 
 on:
   workflow_dispatch:
