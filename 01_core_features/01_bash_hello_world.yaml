@@ -5,7 +5,7 @@ on:
 
 jobs:
     say-hello-world-bash:
-        runs-on: ubuntu-lastest
+        runs-on: ubuntu-latest
         steps:
             - name: Say hello world in bash
               run: echo "Hello World, from bash"
