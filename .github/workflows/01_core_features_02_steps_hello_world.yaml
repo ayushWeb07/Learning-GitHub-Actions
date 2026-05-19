@@ -15,4 +15,4 @@ jobs:
     steps:
       - name: Say hello world in python
         shell: python
-        run: print "Hello World, from python"
+        run: print("Hello World, from python")
