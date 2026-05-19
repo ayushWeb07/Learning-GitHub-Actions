@@ -1,0 +1,33 @@
+name: Data Accross Jobs Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  producer:
+    runs-on: ubuntu-latest
+    outputs:
+      foo: ${{ steps.generate-foo.outputs.out_foo }}
+    steps:
+      - name: Generate Foo
+        id: generate-foo
+        run: |
+          foo= producer_bar
+          echo "out_foo=${foo}" >> "$GITHUB_OUTPUT"
+          echo "env_foo=${foo}" >> "$GITHUB_ENV"
+
+      - name: Access Foo
+        run: |
+          echo "ENV -> $env_foo"
+          echo "OUT -> ${{ steps.generate-foo.outputs.out_foo }}"
+
+  consumer:
+    runs-on: ubuntu-latest
+    needs: producer
+    env:
+      env_foo: consumer_foo
+    steps:
+      - name: Access Foo from Producer
+        run: |
+          echo "PRODUCER OUT -> ${{ needs.producer.outputs.out_foo }}"
+          echo "CONSUMER ENV -> $env_foo"
