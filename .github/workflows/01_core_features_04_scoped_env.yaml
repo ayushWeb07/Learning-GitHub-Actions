@@ -33,4 +33,4 @@ jobs:
           JOB_SCOPED_ENV= os.environ.get("JOB_SCOPED_ENV")
           STEP_SCOPED_ENV= os.environ.get("STEP_SCOPED_ENV")
                   
-          print(f"${WORKFLOW_SCOPED_ENV} | ${JOB_SCOPED_ENV} | ${STEP_SCOPED_ENV}")
+          print(f"{WORKFLOW_SCOPED_ENV} | {JOB_SCOPED_ENV} | {STEP_SCOPED_ENV}")
