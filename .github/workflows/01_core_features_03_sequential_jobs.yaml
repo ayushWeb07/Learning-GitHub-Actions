@@ -1,0 +1,42 @@
+name: Sequential Jobs Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Format the code
+        run: echo "Formatting done..."
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lint the code
+        run: echo "Linting done..."
+
+  build:
+    runs-on: ubuntu-latest
+    needs:
+      - format
+      - lint
+    steps:
+      - name: Build the code
+        run: echo "Building done..."
+
+  test:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - name: Test the code
+        run: echo "Testing done..."
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs:
+      - test
+    steps:
+      - name: Deploy the code
+        run: echo "Deploying done..."
