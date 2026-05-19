@@ -12,7 +12,7 @@ jobs:
       - name: Generate Foo
         id: generate-foo
         run: |
-          foo= producer_bar
+          foo= "producer_bar"
           echo "out_foo=${foo}" >> "$GITHUB_OUTPUT"
           echo "env_foo=${foo}" >> "$GITHUB_ENV"
 
