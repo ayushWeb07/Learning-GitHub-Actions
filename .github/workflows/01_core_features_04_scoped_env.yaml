@@ -16,7 +16,7 @@ jobs:
       - name: Say hello world in bash
         env:
           STEP_SCOPED_ENV: Step for Bash Hello World Job
-        run: $WORKFLOW_SCOPED_ENV | $JOB_SCOPED_ENV | $STEP_SCOPED_ENV"
+        run: echo "$WORKFLOW_SCOPED_ENV | $JOB_SCOPED_ENV | $STEP_SCOPED_ENV"
 
   say-hello-world-python:
     runs-on: ubuntu-latest
@@ -27,4 +27,10 @@ jobs:
         env:
           STEP_SCOPED_ENV: Step for Python Hello World Job
         shell: python
-        run: print(f"${WORKFLOW_SCOPED_ENV} | ${JOB_SCOPED_ENV} | ${STEP_SCOPED_ENV}")
+        run: |
+          import os
+          WORKFLOW_SCOPED_ENV= os.environ.get("WORKFLOW_SCOPED_ENV")
+          JOB_SCOPED_ENV= os.environ.get("JOB_SCOPED_ENV")
+          STEP_SCOPED_ENV= os.environ.get("STEP_SCOPED_ENV")
+                  
+          print(f"${WORKFLOW_SCOPED_ENV} | ${JOB_SCOPED_ENV} | ${STEP_SCOPED_ENV}")

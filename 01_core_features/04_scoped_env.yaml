@@ -1,30 +1,36 @@
 name: Scoped ENV Workflow
 
 on:
-    workflow_dispatch:
+  workflow_dispatch:
 
 env:
   WORKFLOW_SCOPED_ENV: Workflow
 
 jobs:
-    say-hello-world-bash:
-        runs-on: ubuntu-latest
-        env:
-            JOB_SCOPED_ENV: Bash Hello World Job
+  say-hello-world-bash:
+    runs-on: ubuntu-latest
+    env:
+      JOB_SCOPED_ENV: Bash Hello World Job
 
-        steps:
-            - name: Say hello world in bash
-              env:
-                  STEP_SCOPED_ENV: Step for Bash Hello World Job
-              run: $WORKFLOW_SCOPED_ENV | $JOB_SCOPED_ENV | $STEP_SCOPED_ENV"
-
-    say-hello-world-python:
-        runs-on: ubuntu-latest
+    steps:
+      - name: Say hello world in bash
         env:
-          JOB_SCOPED_ENV: Python Hello World Job
-        steps:
-            - name: Say hello world in python
-              env:
-                STEP_SCOPED_ENV: Step for Python Hello World Job
-              shell: python
-              run: print(f"${WORKFLOW_SCOPED_ENV} | ${JOB_SCOPED_ENV} | ${STEP_SCOPED_ENV}")
+          STEP_SCOPED_ENV: Step for Bash Hello World Job
+        run: echo "$WORKFLOW_SCOPED_ENV | $JOB_SCOPED_ENV | $STEP_SCOPED_ENV"
+
+  say-hello-world-python:
+    runs-on: ubuntu-latest
+    env:
+      JOB_SCOPED_ENV: Python Hello World Job
+    steps:
+      - name: Say hello world in python
+        env:
+          STEP_SCOPED_ENV: Step for Python Hello World Job
+        shell: python
+        run: |
+          import os
+          WORKFLOW_SCOPED_ENV= os.environ.get("WORKFLOW_SCOPED_ENV")
+          JOB_SCOPED_ENV= os.environ.get("JOB_SCOPED_ENV")
+          STEP_SCOPED_ENV= os.environ.get("STEP_SCOPED_ENV")
+          
+          print(f"${WORKFLOW_SCOPED_ENV} | ${JOB_SCOPED_ENV} | ${STEP_SCOPED_ENV}")
