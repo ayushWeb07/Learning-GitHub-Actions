@@ -1,0 +1,16 @@
+name: AWS Configuration Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  aws-configuration:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_GITHUB_ACTION_ROLE }}
